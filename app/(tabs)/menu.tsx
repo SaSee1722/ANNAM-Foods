@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { StyleSheet, View, Text, FlatList, Image, TouchableOpacity, TextInput, Dimensions, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { Search, ShoppingBag, Star, Clock, Plus, ScanLine } from 'lucide-react-native';
+import { Search, ShoppingBag, Clock, Plus, ScanLine } from 'lucide-react-native';
 import Animated, { FadeInDown, FadeInRight } from 'react-native-reanimated';
 import { Colors } from '../../constants/Colors';
 import { MENU_ITEMS, CATEGORIES } from '../../constants/Data';
@@ -46,20 +46,16 @@ export default function MenuScreen() {
       style={styles.foodCard}
     >
       <Image source={{ uri: item.image }} style={styles.foodImage} />
-      <View style={styles.ratingBadge}>
-        <Star size={12} color="#FFD700" fill="#FFD700" />
-        <Text style={styles.ratingText}>{item.rating}</Text>
-      </View>
       
       <View style={styles.foodInfo}>
         <Text style={styles.foodName} numberOfLines={1}>{item.name}</Text>
         <View style={styles.timeInfo}>
-          <Clock size={14} color={Colors.textSecondary} />
+          <Clock size={12} color={Colors.textSecondary} />
           <Text style={styles.timeText}>{item.time}</Text>
         </View>
         
         <View style={styles.priceRow}>
-          <Text style={styles.foodPrice}>${item.price.toFixed(2)}</Text>
+          <Text style={styles.foodPrice}>₹{item.price}</Text>
           <TouchableOpacity 
             style={styles.addButton}
             onPress={() => addToCart(item)}
@@ -83,7 +79,7 @@ export default function MenuScreen() {
             style={styles.qrButton}
             onPress={() => router.push('/qr-scanner')}
           >
-            <ScanLine size={24} color={Colors.secondary} />
+            <ScanLine size={24} color={Colors.primary} />
           </TouchableOpacity>
         </View>
       </View>
@@ -93,7 +89,7 @@ export default function MenuScreen() {
           <Search size={20} color={Colors.textSecondary} />
           <TextInput 
             style={styles.searchInput}
-            placeholder="Search for dishes..."
+            placeholder="Search for starters or juices..."
             value={searchQuery}
             onChangeText={setSearchQuery}
           />
@@ -154,7 +150,7 @@ export default function MenuScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.background,
   },
   header: {
     flexDirection: 'row',
@@ -170,7 +166,7 @@ const styles = StyleSheet.create({
   location: {
     fontSize: 18,
     fontWeight: '700',
-    color: Colors.secondary,
+    color: Colors.primary,
   },
   headerButtons: {
     flexDirection: 'row',
@@ -180,7 +176,7 @@ const styles = StyleSheet.create({
     width: 44,
     height: 44,
     borderRadius: 22,
-    backgroundColor: Colors.card,
+    backgroundColor: Colors.white,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -191,7 +187,7 @@ const styles = StyleSheet.create({
   searchBar: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: Colors.card,
+    backgroundColor: Colors.white,
     borderRadius: 14,
     paddingHorizontal: 16,
     height: 54,
@@ -214,7 +210,7 @@ const styles = StyleSheet.create({
   categoryItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: Colors.card,
+    backgroundColor: Colors.white,
     paddingHorizontal: 16,
     paddingVertical: 10,
     borderRadius: 12,
@@ -232,7 +228,7 @@ const styles = StyleSheet.create({
   categoryText: {
     fontSize: 14,
     fontWeight: '600',
-    color: Colors.secondary,
+    color: Colors.text,
   },
   activeCategoryText: {
     color: Colors.white,
@@ -250,13 +246,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 12,
     marginBottom: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 10,
     elevation: 3,
     borderWidth: 1,
-    borderColor: '#F0F0F0',
+    borderColor: Colors.border,
   },
   foodImage: {
     width: '100%',
@@ -264,30 +256,13 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     marginBottom: 12,
   },
-  ratingBadge: {
-    position: 'absolute',
-    top: 20,
-    right: 20,
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 20,
-    gap: 4,
-  },
-  ratingText: {
-    fontSize: 12,
-    fontWeight: '700',
-    color: Colors.secondary,
-  },
   foodInfo: {
     gap: 4,
   },
   foodName: {
     fontSize: 16,
     fontWeight: '700',
-    color: Colors.secondary,
+    color: Colors.text,
   },
   timeInfo: {
     flexDirection: 'row',
@@ -295,7 +270,7 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   timeText: {
-    fontSize: 12,
+    fontSize: 11,
     color: Colors.textSecondary,
   },
   priceRow: {
@@ -324,14 +299,10 @@ const styles = StyleSheet.create({
     right: 24,
   },
   cartFab: {
-    backgroundColor: Colors.secondary,
+    backgroundColor: Colors.primaryDark,
     paddingHorizontal: 24,
     paddingVertical: 16,
     borderRadius: 20,
-    shadowColor: Colors.secondary,
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.3,
-    shadowRadius: 12,
     elevation: 8,
   },
   cartFabContent: {
@@ -355,7 +326,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 2,
-    borderColor: Colors.secondary,
+    borderColor: Colors.primaryDark,
   },
   badgeText: {
     color: Colors.white,

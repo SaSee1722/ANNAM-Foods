@@ -13,42 +13,31 @@ export default function LoginScreen() {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = () => {
-    // Mock login
     router.replace('/(tabs)/menu');
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView 
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={{ flex: 1 }}
-      >
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
         <ScrollView contentContainerStyle={styles.scrollContent}>
-          <TouchableOpacity 
-            style={styles.backButton}
-            onPress={() => router.back()}
-          >
-            <ArrowLeft color={Colors.secondary} size={24} />
+          <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
+            <ArrowLeft color={Colors.text} size={24} />
           </TouchableOpacity>
 
           <View style={styles.header}>
             <Text style={styles.title}>Welcome Back</Text>
-            <Text style={styles.subtitle}>Sign in to continue your culinary journey</Text>
+            <Text style={styles.subtitle}>Sign in to continue to Annam FC</Text>
           </View>
 
-          <Animated.View 
-            entering={FadeInRight.delay(200).duration(600)}
-            style={styles.form}
-          >
+          <Animated.View entering={FadeInRight.delay(200).duration(600)} style={styles.form}>
             <View style={styles.inputContainer}>
-              <Text style={styles.label}>Email Address</Text>
+              <Text style={styles.label}>Email or Username</Text>
               <View style={styles.inputWrapper}>
                 <Mail size={20} color={Colors.textSecondary} style={styles.inputIcon} />
                 <TextInput
                   style={styles.input}
                   placeholder="name@example.com"
                   placeholderTextColor={Colors.textSecondary}
-                  keyboardType="email-address"
                   autoCapitalize="none"
                   value={email}
                   onChangeText={setEmail}
@@ -68,27 +57,13 @@ export default function LoginScreen() {
                   value={password}
                   onChangeText={setPassword}
                 />
-                <TouchableOpacity 
-                  onPress={() => setShowPassword(!showPassword)}
-                  style={styles.eyeIcon}
-                >
-                  {showPassword ? (
-                    <EyeOff size={20} color={Colors.textSecondary} />
-                  ) : (
-                    <Eye size={20} color={Colors.textSecondary} />
-                  )}
+                <TouchableOpacity onPress={() => setShowPassword(!showPassword)} style={styles.eyeIcon}>
+                  {showPassword ? <EyeOff size={20} color={Colors.textSecondary} /> : <Eye size={20} color={Colors.textSecondary} />}
                 </TouchableOpacity>
               </View>
             </View>
 
-            <TouchableOpacity style={styles.forgotPassword}>
-              <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity 
-              style={styles.loginButton}
-              onPress={handleLogin}
-            >
+            <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
               <Text style={styles.loginButtonText}>Sign In</Text>
             </TouchableOpacity>
 
@@ -110,7 +85,7 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.background,
   },
   scrollContent: {
     padding: 24,
@@ -120,7 +95,7 @@ const styles = StyleSheet.create({
     width: 44,
     height: 44,
     borderRadius: 22,
-    backgroundColor: Colors.card,
+    backgroundColor: Colors.white,
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 32,
@@ -129,9 +104,9 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   title: {
-    fontSize: 28,
+    fontSize: 32,
     fontWeight: '800',
-    color: Colors.secondary,
+    color: Colors.text,
     marginBottom: 8,
   },
   subtitle: {
@@ -139,7 +114,12 @@ const styles = StyleSheet.create({
     color: Colors.textSecondary,
   },
   form: {
-    gap: 24,
+    gap: 20,
+    backgroundColor: Colors.white,
+    padding: 24,
+    borderRadius: 30,
+    elevation: 5,
+    shadowOpacity: 0.1,
   },
   inputContainer: {
     gap: 8,
@@ -147,12 +127,12 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 14,
     fontWeight: '600',
-    color: Colors.secondary,
+    color: Colors.text,
   },
   inputWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: Colors.card,
+    backgroundColor: '#F5F5F5',
     borderRadius: 14,
     paddingHorizontal: 16,
     borderWidth: 1,
@@ -164,19 +144,11 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     height: 54,
-    fontSize: 16,
+    fontSize: 15,
     color: Colors.text,
   },
   eyeIcon: {
     padding: 8,
-  },
-  forgotPassword: {
-    alignSelf: 'flex-end',
-  },
-  forgotPasswordText: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: Colors.primary,
   },
   loginButton: {
     backgroundColor: Colors.primary,
@@ -184,16 +156,11 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     alignItems: 'center',
     marginTop: 8,
-    shadowColor: Colors.primary,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 5,
   },
   loginButtonText: {
     color: Colors.white,
     fontSize: 18,
-    fontWeight: '700',
+    fontWeight: '800',
   },
   footer: {
     flexDirection: 'row',
@@ -206,7 +173,7 @@ const styles = StyleSheet.create({
   },
   signupLink: {
     fontSize: 15,
-    fontWeight: '700',
+    fontWeight: '800',
     color: Colors.primary,
   },
 });
